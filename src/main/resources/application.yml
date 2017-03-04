@@ -1,0 +1,3 @@
+fixie:
+  url: ${FIXIE_SOCKS_HOST}
+  enabled: ${FIXIE_ENABLED}
