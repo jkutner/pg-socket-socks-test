@@ -17,23 +17,19 @@ public class StaticIpConfiguration {
 
     static Logger log = LoggerFactory.getLogger(StaticIpConfiguration.class.getName());
 
-    @Value("${fixie.url}")
-    String proxyUrl;
-
-    @Value("${fixie.enabled}")
-    boolean enabled;
-
     @Bean
     public StaticIpProxy staticIpProxy() throws MalformedURLException {
+        String enabled = System.getenv("FIXIE_ENABLED");
 
-        if(!enabled) {
+        if(!"true".equals(enabled)) {
             log.warn("Static IP is not enabled");
             return null;
         }
 
+        String proxyUrl = System.getenv("FIXIE_URL");
         log.info("Connecting to static IP with proxy URL: "+proxyUrl);
 
-        final URL staticProxyUrl = new URL("https://"+proxyUrl);
+        final URL staticProxyUrl = new URL(proxyUrl);
 
         return new StaticIpProxy(staticProxyUrl);
     }
