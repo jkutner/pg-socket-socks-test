@@ -1,6 +1,6 @@
 {
-  "name": "Java app",
-  "description": "Bug demo app",
+  "name": "Postgres JDBC",
+  "description": "A simple Java app to reproduce a bug in the Postgres JDBC Driver.",
   "addons": [ "heroku-postgresql" ],
   "env": {
     "SOCKS_URL": {
