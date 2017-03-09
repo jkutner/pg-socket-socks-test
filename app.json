@@ -1,10 +1,5 @@
 {
   "name": "Java app",
   "description": "Bug demo app",
-  "addons": [ "heroku-postgresql", "fixie" ],
-  "env": {
-    "FIXIE_ENABLED": {
-      "value": "true"
-    }
-  }
+  "addons": [ "heroku-postgresql" ]
 }
