@@ -1,5 +1,10 @@
 {
   "name": "Java app",
   "description": "Bug demo app",
-  "addons": [ "heroku-postgresql" ]
+  "addons": [ "heroku-postgresql" ],
+  "env": {
+    "SOCKS_URL": {
+      "value": "http://localhost:9090"
+    }
+  }
 }
