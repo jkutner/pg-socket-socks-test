@@ -19,17 +19,7 @@ public class StaticIpConfiguration {
 
     @Bean
     public StaticIpProxy staticIpProxy() throws MalformedURLException {
-        String enabled = System.getenv("FIXIE_ENABLED");
-
-        if(!"true".equals(enabled)) {
-            log.warn("Static IP is not enabled");
-            return null;
-        }
-
-        String proxyUrl = System.getenv("FIXIE_URL");
-        log.info("Connecting to static IP with proxy URL: "+proxyUrl);
-
-        final URL staticProxyUrl = new URL(proxyUrl);
+        final URL staticProxyUrl = new URL(System.getenv("SOCKS_URL"));
 
         return new StaticIpProxy(staticProxyUrl);
     }

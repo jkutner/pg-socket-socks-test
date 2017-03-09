@@ -16,18 +16,21 @@ public class StaticIpProxy {
     }
 
     public void init() {
-        String userInfo = proxyUrl.getUserInfo();
-        String user = userInfo.substring(0, userInfo.indexOf(':'));
-        String password = userInfo.substring(userInfo.indexOf(':') + 1);
+        String userInfo = this.proxyUrl.getUserInfo();
+        if (userInfo != null && !userInfo.isEmpty()) {
+            final String user = userInfo.substring(0, userInfo.indexOf(':'));
+            final String password = userInfo.substring(userInfo.indexOf(':') + 1);
 
-        // http://docs.oracle.com/javase/7/docs/technotes/guides/net/proxies.html
+            System.out.println("Setting SOCKS auth: " + user + ":" + password);
+            Authenticator.setDefault(new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(user, password.toCharArray());
+                }
+            });
+        }
+
+        System.out.println("Using SOCKS proxy: " + proxyUrl.getHost() + ":" + String.valueOf(proxyUrl.getPort()));
         System.setProperty("socksProxyHost", proxyUrl.getHost());
-        System.setProperty("socksProxyPort", Integer.toString(1080));
-
-        Authenticator.setDefault(new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, password.toCharArray());
-            }
-        });
+        System.setProperty("socksProxyPort", String.valueOf(proxyUrl.getPort()));
     }
 }
